@@ -1,0 +1,5 @@
+C:\Web\KhoaY\KhoaY.Model\bin\Debug\KhoaY.Model.dll
+C:\Web\KhoaY\KhoaY.Model\bin\Debug\KhoaY.Model.pdb
+C:\Web\KhoaY\KhoaY.Model\obj\Debug\KhoaY.Model.dll
+C:\Web\KhoaY\KhoaY.Model\obj\Debug\KhoaY.Model.pdb
+C:\Web\KhoaY\KhoaY.Model\obj\Debug\KhoaY.Model.csprojResolveAssemblyReference.cache

@@ -1,0 +1,1178 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+<head runat="server">
+    <meta name="google" content="notranslate" />
+    <meta charset="utf-8" />
+
+    <title>User Mediscience LTD</title>
+     <%--<link rel="shortcut icon" href="Images/thuocicon1.jpg" />--%>
+    <link type="image/x-icon" href="Images/thuocicon2.png" rel="icon">
+    <script src="Scripts/jquery-1.8.3.min.js"></script>
+
+    <script src="bootstrap-4.0.0-dist/js/jquery.min.js"></script>
+    <script src="CSS/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <link href="CSS/bootstrap-4.0.0-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="CSS/bootstrap-4.0.0-dist/css/jquery-ui.css" rel="stylesheet" />
+    
+    <%--Autocomplete Extender--%> 
+   
+   <style>
+        .AutoExtender
+        {
+            font-family: Verdana, Helvetica, sans-serif;
+            font-size: .8em;
+            font-weight: normal;
+            border: solid 1px #006699;
+            line-height: 20px;
+            padding: 2px;
+            background-color: White;
+             z-index:9000;
+
+             
+        }
+        .AutoExtenderList
+        {
+            border-bottom: dotted 1px #006699;
+            cursor: pointer;
+            color: black;
+            
+             z-index:9000;
+
+             
+        }
+        .AutoExtenderHighlight
+        {
+            /*color: White;
+            background-color: #006699;*/
+            /*background-color:#ebedf0;
+            color:#2ca01c;*/
+            background-color:green;
+            color:white;
+            cursor: pointer;
+            font-weight:normal;
+            z-index:9000;
+
+        }
+        .autocomplete_completionListElement
+{
+       
+    background-color:white;
+    color: windowtext;
+    border-width:1px;
+    border-style:solid;
+    overflow:auto;
+    max-height:200px;  
+    text-align:left;
+    list-style-type:none;
+    padding:0px;
+     position:static;
+     z-index:9000;
+
+    
+}
+        .fixed-topcus{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+    </style>
+
+
+      <script type = "text/javascript">
+          function Products_Populated(sender, e) {
+              
+              var products = sender.get_completionList().childNodes;
+              
+              for (var i = 0; i < products.length; i++) {
+                  var product = products[i];
+                  var productValueArray = (product._value).split("|");
+                  var text = products[i].innerHTML;
+                  products[i].innerHTML = "<img style ='float:none;height:50px;width:40px' src ='../ImageViewer.ashx?ProductImageId=" + (product._value).split("|")[0] + "'/>" + (product._value).split("|")[1] + "</br>";
+                  
+              }
+              //var searchText = sender.get_element().value;
+              const myTimeout = setTimeout(HideImage(), 500);
+              
+              <%--document.getElementById('<%=txtProductSearch.ClientID %>')
+                             .style.backgroundImage = 'none';--%>
+              
+          }
+          function OnProductSelected(source, eventArgs) {
+
+              var HdnKey = eventArgs.get_value();
+              document.getElementById('<%=txtProductSearch.ClientID %>').value = HdnKey.split('|')[1];
+              document.getElementById('<%=txtProductSearch.ClientID %>').focus();
+          }
+          function OnClientCompleted(sender, e) {
+              document.getElementById('<%=txtProductSearch.ClientID %>')
+                             .style.backgroundImage = 'none';
+          }
+
+    </script>
+    
+ <script type="text/javascript">
+     function ShowImage() {
+         <%--var products = sender.get_completionList().childNodes;
+         var searchText = sender.get_element().value;
+         if (searchText.value == "") {
+             document.getElementById('<%=txtProductSearch.ClientID %>')
+                              .style.backgroundImage = 'none';
+             return;
+         }
+         if (products.length <= 0) {
+            
+             document.getElementById('<%=txtProductSearch.ClientID %>')
+                             .style.backgroundImage = 'none';
+             return;
+         }   
+        
+         var txt = document.getElementById('<%=txtProductSearch.ClientID %>');
+         if (!isNaN(txt.value))
+         {
+             document.getElementById('<%=txtProductSearch.ClientID %>')
+                              .style.backgroundImage = 'none';
+             return;
+         }--%>
+         document.getElementById('<%=txtProductSearch.ClientID %>')
+              .style.backgroundImage = 'url(images/loader.gif)';
+
+         document.getElementById('<%=txtProductSearch.ClientID %>')
+                            .style.backgroundRepeat = 'no-repeat';
+
+         document.getElementById('<%=txtProductSearch.ClientID %>')
+                            .style.backgroundPosition = 'right';
+     }
+     function HideImage() {
+         document.getElementById('<%=txtProductSearch.ClientID %>')
+                              .style.backgroundImage = 'none';
+         
+     }
+    
+</script>
+
+
+
+    <%--End Autocomplete Extender--%>
+
+    <!-- CSS for progress bar -->
+    <style>
+        .ButtonClass {
+            cursor: pointer;
+            
+        }
+        
+
+        .overlay {
+            position: fixed;
+            z-index: 99;
+            top: 0px;
+            left: 0px;
+            background-color: #FFFFFF;
+            width: 100%;
+            height: 100%;
+            filter: Alpha(Opacity=70);
+            opacity: 0.70;
+            -moz-opacity: 0.70;
+        }
+
+        * html .overlay {
+            position: absolute;
+            height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+            width: expression(document.body.scrollWidth > document.body.offsetWidth ? document.body.scrollWidth : document.body.offsetWidth + 'px');
+        }
+
+        .loader {
+            z-index: 100;
+            position: fixed;
+            width: 120px;
+            margin-left: -60px;
+            top: 50%;
+            left: 50%;
+        }
+
+        * html .loader {
+            position: absolute;
+            margin-top: expression((document.body.scrollHeight / 4) + (0 - parseInt(this.offsetParent.clientHeight / 2) + (document.documentElement && document.documentElement.scrollTop || document.body.scrollTop)) + 'px');
+        }
+
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            /*border: 5px solid #67CFF5;*/
+            width: 200px;
+            height: 100px;
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            z-index: 999;
+            filter: Alpha(Opacity=10);
+            opacity: 0.10;
+            -moz-opacity: 0.10;
+        }
+    </style>
+
+    <!-- Thong Bao -->
+    <style type="text/css">
+        .close {
+            vertical-align: top;
+            border: none;
+            color: inherit;
+            border-radius: 50%;
+
+            background: transparent;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            opacity: 0.6;
+        }
+         .close:focus {
+    outline: 0;
+    outline-color: transparent;
+    outline-width: 0;
+    outline-style: none;
+    box-shadow: 0 0 0 0 rgba(0,123,255,0);
+}
+         
+            /*.close:focus,
+            .close:hover {
+                opacity: 1;
+                background: rgba(128, 128, 128, 0.5);
+            }
+
+            .close:active {
+                background: rgba(128, 128, 128, 0.9);
+            }
+             tines of the X 
+            .close::before,
+            .close::after {
+                content: " ";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                height: 20px;
+                width: 4px;
+                background-color: currentColor;
+            }
+
+            .close::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            .close::after {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }*/
+
+        hr.message-inner-separator {
+            clear: both;
+            margin-top: 10px;
+            margin-bottom: 13px;
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        }
+
+        /*.messagealert {
+            width: 30%;           
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 70%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }*/
+    </style>
+      <!-- Ket Thuc Thong Bao -->
+
+    <style type="text/css">
+        a {
+            color: black;
+        }
+
+            a:hover {
+                color: white;
+                text-decoration: solid;
+            }
+
+        .list-group-item:hover,
+        .list-group-item:focus {
+            /*background-color:  #007bff;*/
+            background-color: #2687fb;
+            color: white;
+        }
+
+        .bg-primarycus {
+            /*background-color: #4a87ed!important;*/
+            background-color: #2687fb;
+            
+        }
+    </style>
+
+    <style type="text/css">
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+
+        .col-lg-7 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 54%;
+            flex: 0 0 54%;
+            max-width: 54%;
+        }
+
+        .col-lg-10 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 90%;
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+        /*AutoComplete flyout */
+        .completionList {
+            border: solid 1px #444444;
+            margin: 0px;
+            padding: 2px;
+            height: 200px;
+            overflow: auto;
+            background-color: #FFFFFF;
+        }
+
+        .listItem {
+            color: #1C1C1C;
+        }
+
+        .itemHighlighted {
+            background-color: #f8f9fa;
+        }
+
+        @media (min-width: 1px) and (max-width: 375px) {
+            .col-lg-7 {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left: 0px;
+                margin-bottom: 2px;
+                color: red;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .messagealert {
+            width: 35%;
+            /*position:fixed;*/
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            /*top:0px;*/
+            left: 65%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }
+        }
+
+        @media (min-width: 375px) and (max-width: 576px) {
+            .GioHang {
+                margin-left: 0;
+            }
+
+            .search {
+                margin-right: 10rem;
+            }
+
+            .col-lg-7 {
+                position: relative;
+                width: 95%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left: 0px;
+                margin-bottom: 2px;
+                color: black;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .logo {
+                margin-right: 10rem;
+            }
+            .messagealert {
+            width: 70%;
+            /*position:fixed;*/
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            /*top:0px;*/
+            left: 30%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+             }
+        }
+
+        @media (min-width: 576px) and (max-width: 768px) {
+            .GioHang {
+                margin-left: 0;
+            }
+
+            .search {
+            }
+
+            .col-lg-7 {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left: 0px;
+                margin-bottom: 2px;
+                color: blueviolet;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 98%;
+                flex: 0 0 98%;
+                max-width: 98%;
+            }
+
+            .logo {
+                margin-right: 10rem;
+            }
+
+            .footercus {
+                /*background: #f8f9fa;
+            color: black;*/
+                background: #2687fb;
+                color: white;
+                padding: 10px;
+                min-height: 2vh;
+            }
+            .messagealert {
+            width: 60%;
+            /*position:fixed;*/
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            /*top:0px;*/
+            left: 40%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+            }
+        }
+        /*Css for iphone*/
+        @media (min-width: 768px) and (max-width: 991.98px) {
+
+            .GioHang {
+                margin-right: 1rem;
+            }
+
+            .col-lg-7 {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left: 14px;
+                color: blue;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 50%;
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+
+            .logo {
+                margin-left: 1rem;
+            }
+
+            .footercus {
+                /*background: #f8f9fa;
+            color: black;*/
+                background-color: #2687fb;
+                color: white;
+                padding: 20px;
+                /*min-height:1000px;*/
+                min-height:18vh;
+            }
+
+
+            .col-md-2cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 15%;
+                flex: 0 0 15%;
+                max-width: 15%;
+            }
+
+            .col-md-3cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 25%;
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+            .messagealert {
+            width: 45%;
+            /*position:fixed;*/
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            /*top:0px;*/
+            left: 55%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }
+            .ml-6 {
+                margin-left: 5px;
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .col-lg-7 {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left: 15px;
+                color: red;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 56%;
+                flex: 0 0 56%;
+                max-width: 56%;
+            }
+
+            .footercus {
+                /*background: #f8f9fa;
+            color: black;*/
+                background: #2687fb;
+                color: white;
+                padding: 20px;
+                min-height: 2vh;
+            }
+
+
+            .col-md-2cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 20%;
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+
+            .col-md-3cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 20%;
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+
+            .ml-6 {
+                margin-left: 30px;
+            }
+            .messagealert {
+                width: 40%;
+                /*position:fixed;*/
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                /*top:0px;*/
+                left: 60%;
+                z-index: 100000;
+                padding: 0;
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .GioHang {
+                margin-right: 0rem;
+            }
+
+            .col-lg-7 {
+                position: relative;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 0px;
+                padding-left:52px;
+               
+                color: red;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 60%;
+                flex: 0 0 60%;
+                max-width: 60%;
+            }
+
+            .logo {
+                margin-left: 0rem;
+            }
+
+            .footercus {
+                /*background: #f8f9fa;
+            color: black;*/
+                background: #2687fb;
+                color: white;
+                padding: 40px;
+                padding-bottom: 0px;
+            }
+
+
+            .col-md-2cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 20%;
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+
+            .col-md-3cus {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 20%;
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+
+            .ml-6 {
+                margin-left: 40px;
+            }
+            .messagealert {
+            width: 30%;
+            /*position:fixed;*/
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            /*top:0px;*/
+            left: 70%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }
+        }
+        /* Bao Gia */
+        .list-group-itemcus {
+            position: relative;
+            display: block;
+            white-space: normal;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+        .list-group-itemcus:hover {
+            background-color: #2687fb;
+            color: white;
+        }
+            
+        
+    </style>
+
+    <!-- CSS for bottom link -->
+    <style type="text/css">
+        .linkbottom {
+            position: relative;
+            color: white;
+            text-decoration: none;
+        }
+
+            .linkbottom:hover {
+                color: white;
+                margin-bottom:1px;
+            }
+
+            .linkbottom::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 2px;
+                bottom: 0px;
+                left: 0;
+                background-color: white;
+                transform: scaleX(0);
+                transform-origin: top left;
+                transition: transform 0.5s ease;
+            }
+
+            .linkbottom:hover::before {
+                transform: scaleX(1);
+            }
+    </style>
+    
+    <link href="Admin/CSS/css/font-awesome.css" rel="stylesheet" />
+  
+    <%--Set Css Column Search--%>
+<style>
+    .searchmarginleft1 {
+       margin-left:0px;
+       padding-left:0px;
+    }
+    .searchmarginleft5 {
+       margin-left:10px;
+    }
+    
+</style>
+ <%--<script type="text/javascript">
+     function xmlhttpPost() {
+       
+         document.getElementById('<%=txtProductSearch.ClientID%>').style.backgroundImage = 'url(../Images/ajax-loading-icon-19.jpg)';
+     }
+ </script>--%>
+
+
+     
+
+   
+    <asp:ContentPlaceHolder ID="head" runat="server">
+         
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+ 
+    <form id="form1" runat="server" autocomplete="off">
+        <!-- Show Message Box -->
+       <script type="text/javascript">
+           function SetSession() {
+               <%--var name = document.getElementById("<%=txtUserName.ClientID%>").value;--%>
+               var name = "close";
+            var request;
+            if (window.XMLHttpRequest) {
+                //New browsers.
+                request = new XMLHttpRequest();
+            }
+            else if (window.ActiveXObject) {
+                //Old IE Browsers.
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (request != null) {
+                var url = "SetSessionPage.aspx/SetSession";
+                request.open("POST", url, false);
+                var params = "{name: '" + name + "'}";
+                request.setRequestHeader("Content-Type", "application/json");
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        
+                    }
+                };
+                request.send(params);
+            }
+        }
+     </script>
+        <script type="text/javascript">
+
+            function CloseAlert() {
+                
+                SetSession();
+
+            }
+            
+          function ShowMessage(message, messagetype) {
+                var cssclass;
+                switch (messagetype) {
+                    case 'Success':
+                        cssclass = 'alert-success'
+                        break;
+                    case 'Error':
+                        cssclass = 'alert-danger'
+                        break;
+                    case 'Warning':
+                        cssclass = 'alert-warning'
+                        break;
+                    default:
+                        cssclass = 'alert-info'
+                }
+                $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info "><button OnClick="CloseAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</button> <h5 class="alert-heading">Thông Báo!</h5> <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+
+                
+              <%--  <%Session["CloseAlert"] = "open"; %>
+                var sessionVal = '<%= Session["CloseAlert"]%>';
+                if (sessionVal == "open")
+                    $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><button onclick="ClickEventCloseAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</button> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+                }
+                
+                    $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+                $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><asp:Button runat="server" CausesValidation="false" ID="btnCloseAlert" OnClick="btnCloseAlert_Click" class="close"  Text="x"/> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+            --%>
+            }
+        </script>
+
+        <div class="messagealert" id="alert_container">
+          
+        </div>
+        <!--End Show Message Box -->
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+
+          <%-- <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager> --%>
+        <!--Top Banner-->
+        
+        <asp:Panel ID="PanelSearch" DefaultButton="btnSearch" runat="server">
+             
+            <nav class="navbar navbar-expand-lg navbar-light bg-primarycus fixed-topcus">
+                <div class="container">
+
+                    <a class="navbar-brand font-weight-bold logo" href="../Default.aspx">
+                        <img src="../Images/logo.png" title="Lựa Chọn Để Đến Sản Phẩm Của Chúng Tôi" class="img-responsive" height="35" width="140" /></a>
+
+
+                    <div class="input-group input-group-sm col-lg-7">
+                        <asp:TextBox ID="txtProductSearch" placeholder="Tìm Kiếm Hóa Đơn, Tên Sản Phẩm, Chức Năng Sản Phẩm..." CssClass="form-control"  AccessKey="s" TabIndex="1" runat="server"></asp:TextBox>                       
+                          
+                        <ajaxToolkit:AutoCompleteExtender  MinimumPrefixLength="1"
+                            Enabled="true"
+
+                            ServicePath="~/AutoComplele.aspx"
+                            ServiceMethod="SearchProductsV1"
+                            CompletionInterval="10" EnableCaching="false" CompletionSetCount="12"
+                            TargetControlID="txtProductSearch" OnClientPopulated ="Products_Populated"
+                            OnClientItemSelected = "OnProductSelected"    
+                            ID="AutoCompleteExtender1" runat="server" FirstRowSelected = "false"
+                            CompletionListCssClass="autocomplete_completionListElement"
+                            CompletionListItemCssClass="AutoExtenderList"
+                            onclientpopulating="ShowImage"
+                            OnClientHiding="OnClientCompleted" 
+                                                                           
+                            CompletionListHighlightedItemCssClass="AutoExtenderHighlight">
+                           
+
+                        </ajaxToolkit:AutoCompleteExtender>
+                                    
+                        <asp:Button ID="btnSearch" runat="server" class="btn btn-sm btn-info" Text="Tìm Kiếm" CausesValidation="false" OnClick="btnSearch_Click" TabIndex="2" />
+                        
+                    
+                    </div>
+
+                    <a class="btn btn-success btn-sm GioHang" style="color:white;" href="../ShoppingCart.aspx">
+                        <i class="fa fa-shopping-cart"></i> Giỏ Hàng
+                                <span class="badge badge-light">
+                                    <asp:Label ID="labelCart" runat="server" Text=""></asp:Label></span>
+                    </a>
+                </div>
+            </nav>
+            
+         
+        </asp:Panel>
+            
+
+
+        <asp:ContentPlaceHolder ID="TopSite" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+        <!--End Top Banner-->
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light">
+                        <ol class="breadcrumb bg-light ">
+                            <li runat="server" id="li1" class="breadcrumb-item text-light">
+                                
+                                <asp:HyperLink ID="hpl1" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Trang Chủ" runat="server"></asp:HyperLink></li>
+                            <li runat="server" id="li2" class="breadcrumb-item">
+                                <asp:HyperLink ID="hpl2" NavigateUrl="~/ProductCategory.aspx" Style="color: #007bff" Text="Hãng" runat="server"></asp:HyperLink></li>
+                            <li runat="server" id="li3" class="breadcrumb-item active" aria-current="page">
+                                <asp:HyperLink ID="hpl3" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                            <li runat="server" id="li4" class="breadcrumb-item active" aria-current="page">
+                                <asp:HyperLink ID="hpl4" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                            <li runat="server" id="li5" class="breadcrumb-item active" aria-current="page">
+                                <asp:HyperLink ID="hpl5" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                            <li runat="server" id="li6" class="breadcrumb-item active" aria-current="page">
+                                <asp:HyperLink ID="hpl6" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <!--Left Menu -->
+                <div class="col-12 col-sm-3">
+                    <%-- <div class="card bg-primary mb-3" style="border: thin">
+                            <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i>Hãng</div>
+                            <ul class="list-group category_block">
+                                <asp:Repeater ID="rptRepeater" runat="server">
+                                    <ItemTemplate>
+                                        <a class="list-group-item rounded-0" href="../ProductCategory.aspx?ProductCategoryId=<%#Eval("ProductCategoryId") %>"><%# Eval("ProductCategoryName") %></a>
+                                    </ItemTemplate>
+                                    <AlternatingItemTemplate>
+                                        <a class="list-group-item rounded-0" href="../ProductCategory.aspx?ProductCategoryId=<%#Eval("ProductCategoryId") %>"><%# Eval("ProductCategoryName") %></a>
+                                    </AlternatingItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>--%>
+
+
+
+                    <div class="card bg-primary mb-3" style="border: thin">
+                        <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i> Tác Vụ</div>
+                        <ul class="list-group">
+                           <%--  <a class="list-group-item rounded-0" href="../Default.aspx"> <i class="fa fa-home fa-fw" aria-hidden="true"></i> Trang Chủ</a>
+                          --%>  
+
+                            <asp:LinkButton ID="lnkProducts" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProducts_Click"  runat="server" ToolTip="Sản Phẩm">
+                                <i class="fa fa-product-hunt"></i><span style="font-size:initial;">&nbsp&nbsp&nbsp Sản Phẩm </span>
+                            </asp:LinkButton>
+                           
+                          <%--  <button runat="server" id="btnRun" onserverclick="functionName" class="list-group-itemcus rounded-0 text-left ButtonClass"  title="Search">
+                                 <i class="fa fa-home"></i><span style="font-size:initial;"> Sản Phẩm </span>
+                            </button>--%>
+
+                           <%--<asp:Button ID="commandProducts1" CausesValidation="false" CssClass="list-group-itemcus rounded-0 text-left ButtonClass facus" Text="&#xf015; Sản Phẩm" runat="server" OnClick="commandProducts_Click" ></asp:Button>--%>
+
+           <%--                <asp:Button ID="commandProducts" CausesValidation="false" CssClass="list-group-itemcus rounded-0 text-left ButtonClass" Text="Sản Phẩm" runat="server" OnClick="commandProducts_Click" ></asp:Button>--%>
+
+                            
+                           <%-- <asp:LinkButton ID="commandProducts" CausesValidation="false" CssClass="list-group-itemcus rounded-0 text-left ButtonClass" runat="server" Text="Sản Phẩm" OnClick="commandProducts_Click" ><i class="fa fa-home fa-fw" aria-hidden="true"></i> Sản Phẩm </asp:LinkButton>--%>
+
+
+                            <%--<a class="list-group-item" href="../Introduction.aspx">Giới Thiệu</a>--%>
+                            <%--<asp:Button ID="commandIntroduction" CausesValidation="false" CssClass="list-group-itemcus rounded-0 text-left ButtonClass " runat="server" Text="Giới Thiệu" OnClick="commandIntroduction_Click" />--%>
+                            <asp:LinkButton ID="LinkIntroduction" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandIntroduction_Click"  runat="server" ToolTip="Giới Thiệu">
+                                <i class="fa fa-info-circle"></i><span style="font-size:initial;">&nbsp&nbsp&nbsp Giới Thiệu </span>
+                            </asp:LinkButton>
+
+
+
+                            <%--<a class="list-group-item" href="../CustomerOrders.aspx">Hóa Đơn Khách Hàng</a>--%>
+                            <%--<asp:Button ID="commandCustomerOrders" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass" runat="server" Text="Hóa Đơn Khách Hàng" OnClick="commandCustomerOrders_Click" />--%>
+                            <asp:LinkButton ID="LinkCustomerOrders" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandCustomerOrders_Click"  runat="server" ToolTip="Hóa Đơn Khách Hàng">
+                                <i class="fa fa-vcard-o"></i><span style="font-size:initial;">&nbsp&nbsp Hóa Đơn Khách Hàng </span>
+                            </asp:LinkButton>
+
+
+                            <%-- <a class="list-group-item" href="../FAQ.aspx">Hỏi Và Trả Lời</a>--%>
+                            <%--<asp:Button ID="commandFAQ" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass " runat="server" Text="Hỏi Và Trả Lời" OnClick="commandFAQ_Click" />--%>
+                             <asp:LinkButton ID="LinkFAQ" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandFAQ_Click"  runat="server" ToolTip="Hỏi Và Trả Lời">
+                                <i class="fa fa-question-circle-o"></i><span style="font-size:initial;">&nbsp&nbsp&nbsp Hỏi Và Trả Lời </span>
+                            </asp:LinkButton>
+
+
+                            <%-- <a class="list-group-item" href="../ContactUs.aspx">Liên Lạc</a>--%>
+                            <%--<asp:Button ID="commandContactUs" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass " runat="server" Text="Liên Lạc" OnClick="commandContactUs_Click" />--%>
+                             <asp:LinkButton ID="LinkContactUs" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandContactUs_Click"  runat="server" ToolTip="Liên Lạc">
+                                <i class="fa fa-wechat"></i><span style="font-size:initial;">&nbsp&nbsp Liên Lạc </span>
+                            </asp:LinkButton>
+
+
+                            <%-- <a class="list-group-item" href="../Login.aspx">Đăng Nhập</a>--%>
+                            <%--<asp:Button ID="commandLogin" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass" runat="server" Text="Đăng Nhập" OnClick="commandLogin_Click" />--%>
+                              <asp:LinkButton ID="LinkLogin" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandLogin_Click"  runat="server" ToolTip="Đăng Nhập">
+                                <i class="fa fa-sign-in"></i><span style="font-size:initial;">&nbsp&nbsp Đăng Nhập </span>
+                            </asp:LinkButton>
+                           
+                             <%--<a class="list-group-item" href="../ProductQuote.aspx">Báo Giá</a>--%>
+                           <%-- <asp:Button ID="commandProductQuote" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass " runat="server" Text=" Bảng Báo Giá" OnClick="commandProductQuote_Click" />
+                            --%>
+                            <asp:LinkButton ID="LinkProductQuote" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductQuote_Click"  runat="server" ToolTip="Bảng Bảo Giá">
+                                <i class="fa fa-database"></i><span style="font-size:initial;">&nbsp&nbsp Bảng Báo Giá </span>
+                            </asp:LinkButton>
+                            
+                           <%-- <asp:Button ID="commandProductQuotev1" CausesValidation="false" CssClass="list-group-itemcus text-left rounded-0 ButtonClass" runat="server" Text=" Bảng Báo Giá v1" OnClick="commandProductQuotev1_Click" />--%>
+                             <asp:LinkButton ID="LinkProductQuotev1" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductQuotev1_Click"  runat="server" ToolTip="Bảng Bảo Giá v1">
+                                <i class="fa fa-bar-chart-o"></i><span style="font-size:initial;">&nbsp Bảng Báo Giá V1 </span>
+                            </asp:LinkButton>
+                        </ul>
+                    </div>
+
+
+
+
+                    <div class="card bg-primary border-0 mb-3">
+                        <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i> Thống Kê</div>
+                        <div class="card rounded-0">
+                            <div class="card-body">
+                                <i class="fa fa fa-check-square"></i> Số người thăm:  
+                                <asp:Label ID="lblTotalNumberOfUsers" runat="server"></asp:Label>
+                                <br />
+                                <i class="fa fa fa-check-square"> </i> Số người online:
+                                <asp:Label ID="lblCurrentNumberOfUsers" runat="server"></asp:Label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--End Left Menu-->
+
+                <!--Right Menu-->
+                  
+                <div class="col-md-9 col-sm-9">
+                    <div class="card bg-primary mb-3" style="border: thin">
+                        <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i> NỘI DUNG</div>
+                        <div class="card rounded-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <!--Content-->
+                                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                    <!--End Content-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <%-- <div class="col-md-9 col-sm-9" >
+                                <div class="card" >
+                                    <div class="card-header bg-primary text-light font-weight-bolder"> NỘI DUNG</div>
+                                    <div class="card-body">
+                                        <div class="row">                                           
+                                            <!--Content-->
+                                            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                                            </asp:ContentPlaceHolder>
+                                            <!--End Content-->                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>--%>
+            </div>
+            <!--End Right Menu-->
+        </div>
+
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+            </div>
+        </div>
+
+        <!-- footer -->
+
+        <footer class="text-light footercus">
+
+            <div class="row">
+                <div class="col-md-2 col-md-2cus col-lg-4 col-xl-3 mx-auto">
+                    <h5 class="text-light">Giới Thiệu</h5>
+                    <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25" />
+
+
+                    <p class="mb-0 text-light">
+                        Công Ty TNNH KHOA Y Chuyên Kinh Doanh Sỉ Thuốc Tây & Dụng Cụ Phòng Thí Nghiệm
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-md-3cus col-lg-2 col-xl-2 mx-auto">
+
+                    <h5 class="text-light">Thông Tin</h5>
+                    <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                    <ul class="list-unstyled">
+                        <li><a class="linkbottom" target="_blank" href="http://www.mediscience.vn/">Mediscience VN</a></li>
+                        <li><a class="linkbottom" target="_blank" href="https://nhathuoclongchau.com/">Long Châu Nhà Thuốc</a></li>
+                        <li><a class="linkbottom" target="_blank" href="http://nhathuocminhchaubd.com/">Minh Châu Nhà Thuốc</a>
+                            <li><a class="linkbottom" target="_blank" href="https://12707.maybanhang.net/quanly/#AA001">Máy Bán Hàng</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                    <h5>Liên Kết Khác</h5>
+                    <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                    <ul class="list-unstyled">
+                        <li><a class="linkbottom" target="_blank" href="https://support.microsoft.com/en-us">Microsoft Support</a></li>
+                        <li><a class="linkbottom" target="_blank" href="https://www.4shared.com/">4Shared</a></li>
+                        <li><a class="linkbottom" target="_blank" href="https://voalearningenglish.blogspot.com/2014/08/while-you-sleep-your-brain-works.html">VOA English</a></li>
+                        <li><a class="linkbottom" target="_blank" href="https://thienlongmobile.vn/iphone-12-mini-256gb-nhap-khau-lla">Thiên Long Mobile</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3">
+                    <h5>Liên Lạc</h5>
+                    <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                    <ul class="list-unstyled">
+                        <li ><i class="fa fa-home mr-2"> Công Ty TNNH KHOA Y</i></li>
+                        <li ><i class="fa fa-envelope mr-2"> Email: <a  style="text-decoration: underline;color:white" href="mailto:huy7885@gmail.com">huy7885@gmail.com</a></i></li>
+                        <li><i class="fa fa-phone mr-2"> ĐTDD:<a  style="text-decoration: none"> 0933492897 </a></i></li>
+                        <li><i class="fa fa-print mr-2"> Fax: <a  style="text-decoration: none">(08) 3862 4784</a></i></li>
+                        <li><i class="fa fa-wechat mr-2"> Website: <a  style="text-decoration: underline;color:white" href="http://mediscience.ddns.net" target="_blank">Mediscience.ddns.net</a></i></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 copyright mt-3 ml-6">
+                    <p class="float-left">
+                        <a class="linkbottom" href="#">Quay Về</a>
+                    </p>
+                </div>
+
+            </div>
+
+            </footer>
+                <!-- End Footer -->
+                </ContentTemplate>
+            <Triggers>
+                <asp:PostBackTrigger ControlID="LinkProductQuote" />
+                <asp:PostBackTrigger ControlID="LinkProductQuotev1" />
+                <asp:PostBackTrigger ControlID="btnSearch" />
+                
+            </Triggers>
+        </asp:UpdatePanel>
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                    <ProgressTemplate>
+                        <asp:Panel ID="Panel1" CssClass="overlay" runat="server">
+                            <asp:Panel ID="Panel2" CssClass="loader" runat="server">
+                                <img src="images/ajax-loading-icon-19.jpg" width="60px" height="60px" />
+                            </asp:Panel>
+                        </asp:Panel>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+                <script type="text/javascript">
+                    //update panel and postback trigger with fileupload control upadteprogressbar code
+                    var updateProgress = null;
+                    function postbackButtonClick() {
+                        updateProgress = $find("<%= UpdateProgress1.ClientID %>");
+                        window.setTimeout("updateProgress.set_visible(true)", updateProgress.get_displayAfter());
+                        return true;
+                    }
+                </script>
+    </form>
+    
+</body>
+</html>

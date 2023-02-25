@@ -1,0 +1,780 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin_Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head runat="server">
+   <%-- <script type="text/javascript">
+        message = " Admin Mediscience LTD ";//set your title here
+        position = 0;
+        delay = 5000;//in millisecond
+        function slide_title() {
+            document.title = message.substring(position, message.length) + message.substring(0, position); position++;
+            if (position > message.length) position = 0
+        }
+        window.setInterval("slide_title()", delay);
+    </script>--%>
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+
+     <title>Admin Mediscience LTD</title>
+    <link type="image/x-icon" href="../Images/thuocicon2.png" rel="icon">
+   
+    <script src="Scripts/jquery-1.8.3.min.js"></script>
+
+    <script src="../CSS/bootstrap-4.0.0-dist/js/jquery.min.js"></script>
+    <script src="../CSS/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <link href="../CSS/bootstrap-4.0.0-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../CSS/bootstrap-4.0.0-dist/css/jquery-ui.css" rel="stylesheet" />
+
+
+
+    <%--<style type="text/css">
+        body
+        {
+            /*font-family:'Monteserrat,Segoe UI,Arial,Times New Roman';*/
+            font-family:'Segoe UI,Montserrat,Arial,Times New Roman';
+            font-size:16px;
+
+        }
+
+</style>--%>
+
+    <%--<script src="../CSS/bootstrap-4.0.0-dist/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="../CSS/bootstrap-4.0.0-dist/js/popper.min.js"></script> 
+    <script src="../CSS/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" href="../CSS/bootstrap-4.0.0-dist/css/CSSTest.css" />   
+    <link href="../CSS/bootstrap-4.0.0-dist/css/bootstrap.css" rel="stylesheet" />--%>
+    <!--  Bao Gia -->
+    <style type="text/css">
+        .ButtonClass {
+            cursor: pointer;
+            color:black;
+            font-weight:normal;
+          
+        }
+
+        .list-group-itemcus {
+            position: relative;
+            display: block;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+            .list-group-itemcus:hover {
+                background-color: #2687fb;
+                color: white;
+            }
+    </style>
+    <!-- CSS for bottom link -->
+    <style type="text/css">
+        .linkbottom {
+            position: relative;
+            color: white;
+            text-decoration: none;
+        }
+
+            .linkbottom:hover {
+                color: white;
+            }
+
+            .linkbottom::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: white;
+                transform: scaleX(0);
+                transform-origin: top left;
+                transition: transform 0.5s ease;
+            }
+
+            .linkbottom:hover::before {
+                transform: scaleX(1);
+            }
+    </style>
+
+    <style type="text/css">
+        .overlay {
+            position: fixed;
+            z-index: 99;
+            top: 0px;
+            left: 0px;
+            background-color: #FFFFFF;
+            width: 100%;
+            height: 100%;
+            filter: Alpha(Opacity=70);
+            opacity: 0.70;
+            -moz-opacity: 0.70;
+        }
+
+        * html .overlay {
+            position: absolute;
+            height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+            width: expression(document.body.scrollWidth > document.body.offsetWidth ? document.body.scrollWidth : document.body.offsetWidth + 'px');
+        }
+
+        .loader {
+            z-index: 100;
+            position: fixed;
+            width: 120px;
+            margin-left: -60px;
+            top: 50%;
+            left: 50%;
+        }
+
+        * html .loader {
+            position: absolute;
+            margin-top: expression((document.body.scrollHeight / 4) + (0 - parseInt(this.offsetParent.clientHeight / 2) + (document.documentElement && document.documentElement.scrollTop || document.body.scrollTop)) + 'px');
+        }
+    </style>
+    <style type="text/css">
+        a {
+            color: black;
+        }
+
+            a:hover {
+                color: white;
+                text-decoration: solid;
+            }
+
+        .list-group-item:hover,
+        .list-group-item:focus {
+            /*background-color:  #007bff;*/
+            background-color: #2687fb;
+            color: white;
+        }
+
+        .bg-primarycus {
+            /*background-color: #4a87ed!important;*/
+            background-color: #2687fb;
+        }
+
+
+
+        footer {
+            /*background: #f8f9fa;
+            color: black;*/
+            background: #2687fb;
+            color: white;
+            padding: 20px;
+        }
+
+        .col-md-2cus {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 20%;
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+
+        .col-md-3cus {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 20%;
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+
+        .col-lg-7 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 54%;
+            flex: 0 0 54%;
+            max-width: 54%;
+        }
+
+        .col-lg-10 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 90%;
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+        /*AutoComplete flyout */
+        .completionList {
+            border: solid 1px #444444;
+            margin: 0px;
+            padding: 2px;
+            height: 200px;
+            overflow: auto;
+            background-color: #FFFFFF;
+        }
+
+        .listItem {
+            color: #1C1C1C;
+        }
+
+        .itemHighlighted {
+            background-color: #f8f9fa;
+        }
+        /*CSS for Iphone*/
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .DangXuat {
+                margin-right: 1rem;
+            }
+
+            .logo {
+                margin-left: 1rem;
+            }
+
+            .messagealert {
+                width: 45%;
+                /*position:fixed;*/
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                /*top:0px;*/
+                left: 55%;
+                z-index: 100000;
+                padding: 0;
+                font-size: 15px;
+            }
+        }
+
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .ml-6 {
+                margin-left: 25px;
+            }
+
+            .messagealert {
+                width: 40%;
+                /*position:fixed;*/
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                /*top:0px;*/
+                left: 60%;
+                z-index: 100000;
+                padding: 0;
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .DangXuat {
+                margin-right: 0rem;
+            }
+
+            .logo {
+                margin-left: 0rem;
+            }
+
+            .ml-6 {
+                margin-left: 40px;
+            }
+
+            .messagealert {
+                width: 30%;
+                /*position:fixed;*/
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                /*top:0px;*/
+                left: 70%;
+                z-index: 100000;
+                padding: 0;
+                font-size: 15px;
+            }
+        }
+    </style>
+    <!-- Thong Bao -->
+    <style type="text/css">
+        .close {
+            vertical-align: top;
+            border: none;
+            color: inherit;
+            border-radius: 50%;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            opacity: 0.6;
+        }
+
+            .close:focus {
+                outline: 0;
+                outline-color: transparent;
+                outline-width: 0;
+                outline-style: none;
+                box-shadow: 0 0 0 0 rgba(0,123,255,0);
+            }
+
+        /*.close:focus,
+            .close:hover {
+                opacity: 1;
+                background: rgba(128, 128, 128, 0.5);
+            }
+
+            .close:active {
+                background: rgba(128, 128, 128, 0.9);
+            }
+             tines of the X 
+            .close::before,
+            .close::after {
+                content: " ";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                height: 20px;
+                width: 4px;
+                background-color: currentColor;
+            }
+
+            .close::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            .close::after {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }*/
+
+        hr.message-inner-separator {
+            clear: both;
+            margin-top: 10px;
+            margin-bottom: 13px;
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        }
+
+        /*.messagealert {
+            width: 30%;           
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 70%;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }*/
+    </style>
+    <!-- Ket Thuc Thong Bao -->
+    <link href="CSS/css/font-awesome.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <script type="text/javascript">
+              function SetSession() {
+               <%--var name = document.getElementById("<%=txtUserName.ClientID%>").value;--%>
+               var name = "close";
+               var request;
+               if (window.XMLHttpRequest) {
+                   //New browsers.
+                   request = new XMLHttpRequest();
+               }
+               else if (window.ActiveXObject) {
+                   //Old IE Browsers.
+                   request = new ActiveXObject("Microsoft.XMLHTTP");
+               }
+               if (request != null) {
+                   var url = "../TestSetSession.aspx/SetSession";
+                   request.open("POST", url, false);
+                   var params = "{name: '" + name + "'}";
+                   request.setRequestHeader("Content-Type", "application/json");
+                   request.onreadystatechange = function () {
+                       if (request.readyState == 4 && request.status == 200) {
+                        
+                       }
+                   };
+                   request.send(params);
+               }
+           }
+           </script>
+        <script type="text/javascript">
+
+              function CloseAlert() {
+                
+                  SetSession();
+
+              }
+            
+              function ShowMessage(message, messagetype) {
+                  var cssclass;
+                  switch (messagetype) {
+                      case 'Success':
+                          cssclass = 'alert-success'
+                          break;
+                      case 'Error':
+                          cssclass = 'alert-danger'
+                          break;
+                      case 'Warning':
+                          cssclass = 'alert-warning'
+                          break;
+                      default:
+                          cssclass = 'alert-info'
+                  }
+                  $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info "><button OnClick="CloseAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</button> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+
+                
+              <%--  <%Session["CloseAlert"] = "open"; %>
+                var sessionVal = '<%= Session["CloseAlert"]%>';
+                if (sessionVal == "open")
+                    $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><button onclick="ClickEventCloseAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</button> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+                }
+                
+                    $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+                $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert alert-info"><asp:Button runat="server" CausesValidation="false" ID="btnCloseAlert" OnClick="btnCloseAlert_Click" class="close"  Text="x"/> <h5 class="alert-heading">Thông Báo!</h5>   <hr class="message-inner-separator"> <strong>' + messagetype + '</strong> <span>' + message + '</span></div>');
+            --%>
+          }
+        </script>
+
+        <div class="messagealert" id="alert_container">
+        </div>
+
+
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:Panel ID="PanelSearch" DefaultButton="btnSearch" runat="server">
+
+                    <nav class="navbar navbar-expand-lg navbar-light bg-primarycus fixed-top">
+                        <div class="container">
+
+                            <a class="navbar-brand font-weight-bold" href="Products.aspx">
+                                <img src="../Images/logo.png" class="img-responsive logo " height="35" width="140" /></a>
+
+
+                            <div class="input-group input-group-sm col-lg-7 ml-0 pl-0">
+
+                                <asp:TextBox ID="txtOrdersSearch" placeholder="Tìm Kiếm Hóa Đơn, Tên Sản Phẩm, Chức Năng Sản Phẩm..." onchange="javascript: SetFocus();" CssClass="form-control" AccessKey="s" TabIndex="1" runat="server"></asp:TextBox>
+                                <asp:Button ID="btnSearch" runat="server" class="btn btn-sm btn-info" Text="Tìm Kiếm" CausesValidation="false" TabIndex="2" OnClick="btnSearch_Click" />
+                            </div>
+                            <asp:Button ID="commandSignOut" CssClass="btn btn-success btn-sm DangXuat" runat="server" Text="Đăng Xuất" OnClick="commandSignOut_Click" />
+
+                        </div>
+
+                    </nav>
+                </asp:Panel>
+
+                <!--Top Banner-->
+                <asp:ContentPlaceHolder ID="TopSite" runat="server">
+                </asp:ContentPlaceHolder>
+
+                <!--End Top Banner-->
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb" class="bg-light">
+                                <ol class="breadcrumb bg-light ">
+                                    <li runat="server" id="li1" class="breadcrumb-item text-light">
+                                        <asp:HyperLink ID="hpl1" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Trang Chủ" runat="server"></asp:HyperLink></li>
+                                    <li runat="server" id="li2" class="breadcrumb-item">
+                                        <asp:HyperLink ID="hpl2" NavigateUrl="~/ProductCategory.aspx" Style="color: #007bff" Text="Hãng" runat="server"></asp:HyperLink></li>
+                                    <li runat="server" id="li3" class="breadcrumb-item active" aria-current="page">
+                                        <asp:HyperLink ID="hpl3" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                                    <li runat="server" id="li4" class="breadcrumb-item active" aria-current="page">
+                                        <asp:HyperLink ID="hpl4" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                                    <li runat="server" id="li5" class="breadcrumb-item active" aria-current="page">
+                                        <asp:HyperLink ID="hpl5" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+                                    <li runat="server" id="li6" class="breadcrumb-item active" aria-current="page">
+                                        <asp:HyperLink ID="hpl6" NavigateUrl="~/Default.aspx" Style="color: #007bff" Text="Sub-Category" runat="server"></asp:HyperLink></li>
+
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <!--Left Menu -->
+                        <div class="col-12 col-sm-3">
+                            <div class="card bg-light mb-3" style="border: thin">
+                                <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i> Quản Trị</div>
+
+                                <div class="list-group">
+                                    <%--<a class="list-group-item rounded-0" href="ProductCategory.aspx">Nhà Sản Xuất</a>
+                                    --%>
+                                     <asp:LinkButton ID="lnkProductCategory" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductCategory_Click"  runat="server" ToolTip="Nhà Sản Phẩm">
+                                            <i class="fa fa-server"></i><span style="font-size:initial;">&nbsp&nbsp Nhà Sản Xuất </span>
+                                    </asp:LinkButton>
+
+                                   <%-- <a class="list-group-item rounded-0" href="ProductUnit.aspx">Đơn Vị Tính</a>--%>
+                                    <asp:LinkButton ID="LnkProductUnit" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductUnit_Click"  runat="server" ToolTip="Đơn Vị Tính">
+                                            <i class="fa fa-universal-access"></i><span style="font-size:initial;">&nbsp&nbsp Đơn Vị Tính </span>
+                                    </asp:LinkButton>
+
+                                  <%--  <a class="list-group-item" href="Products.aspx">Sản Phẩm</a>--%>
+                                     <asp:LinkButton ID="LnkProduct" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProducts_Click"  runat="server" ToolTip="Sản Phẩm">
+                                            <i class="fa fa-product-hunt"></i><span style="font-size:initial;">&nbsp&nbsp Sản Phẩm </span>
+                                    </asp:LinkButton>
+
+                                     <%--  <a class="list-group-item" href="Products.aspx">Giỏ Rác </a>--%>
+                                     <asp:LinkButton ID="LnkRecycleBin" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandRecycleBin_Click"  runat="server" ToolTip="Giỏ Rác">
+                                            <i class="fa fa-recycle"></i><span style="font-size:initial;">&nbsp&nbsp Giỏ Rác </span>
+                                    </asp:LinkButton>
+
+
+                                    <%--<a class="list-group-item" href="Orders.aspx">Hóa Đơn</a>--%>
+                                       <asp:LinkButton ID="LnkOrder" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandOrders_Click"  runat="server" ToolTip="Hóa Đơn">
+                                            <i class="fa fa-list-alt"></i><span style="font-size:initial;">&nbsp&nbsp Hóa Đơn </span>
+                                    </asp:LinkButton>
+
+                                    <%--<a class="list-group-item" href="ReportOrder.aspx">Báo Cáo Hóa Đơn</a>
+                                    --%>
+                                     <asp:LinkButton ID="LnkReportOrder" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandReportOrders_Click"  runat="server" ToolTip="Báo Cáo Hóa Đơn">
+                                            <i class="fa fa-bar-chart"></i><span style="font-size:initial;">&nbsp&nbsp Báo Cáo Hóa Đơn </span>
+                                    </asp:LinkButton>
+                                    <%--<a class="list-group-item" href="NewsLetter.aspx">Bảng Tin</a>--%>
+                                    <asp:LinkButton ID="LnkNewsLetter" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandNewsLetter_Click"  runat="server" ToolTip="Bảng Tin">
+                                            <i class="fa fa-info-circle"></i><span style="font-size:initial;">&nbsp&nbsp Bảng Tin </span>
+                                    </asp:LinkButton>
+
+
+
+                                   <%-- <asp:Button ID="commandProductLocation" CausesValidation="false" CssClass="list-group-itemcus text-left ButtonClass" runat="server" Text="Vị Trí" OnClick="commandProductLocation_Click" />
+                                   --%> 
+                                       <asp:LinkButton ID="CommandProductLocation" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductLocation_Click"  runat="server" ToolTip="Vị Trí">
+                                            <i class="fa fa-database"></i><span style="font-size:initial;">&nbsp&nbsp Vị Trị </span>
+                                    </asp:LinkButton>
+                                <%--    <asp:Button ID="commandProductPrice" CausesValidation="false" CssClass="list-group-itemcus text-left ButtonClass" runat="server" Text="Báo Giá" OnClick="commandProductPrice_Click" />
+                                --%>
+                                     <asp:LinkButton ID="commandProductPrice" CausesValidation="false" class="list-group-itemcus rounded-0 text-left ButtonClass" OnClick="commandProductPrice_Click"  runat="server" ToolTip="Báo Giá">
+                                            <i class="fa fa-line-chart"></i><span style="font-size:initial;">&nbsp&nbsp Báo Giá </span>
+                                    </asp:LinkButton>
+                                
+                                </div>
+                            </div>
+                            <div class="card bg-light border-0 mb-3">
+                                <div class="card-header bg-primarycus text-light text-uppercase"><i class="fa fa-list"></i> Thống Kê</div>
+                                <div class="card rounded-0">
+                                    <div class="card-body">
+                                       <i class="fa fa fa-check-square"></i> Số người thăm:  
+                                <asp:Label ID="lblTotalNumberOfUsers" runat="server"></asp:Label>
+                                        <br />
+                                      <i class="fa fa fa-check-square"></i> Số người online:
+                                <asp:Label ID="lblCurrentNumberOfUsers" runat="server"></asp:Label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--End Left Menu-->
+
+                        <!--Right Menu-->
+                        <div class="col-md-9 col-sm-9">
+                            <div class="card">
+                                <div class="card-header bg-primarycus text-light font-weight-bolder"><i class="fa fa-list"></i> NỘI DUNG</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!--Content-->
+                                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                        <!--End Content-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--End Right Menu-->
+                </div>
+
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <p style="width: 500px; white-space: normal; word-break: break-all"></p>
+                    </div>
+                </div>
+
+                <%--     <!-- footer -->
+            <footer class="text-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-4 col-xl-3">
+                            <h5 class="text-light">Giới Thiệu</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25" />
+
+
+                            <p class="mb-0 text-light">
+                                Công Ty TNNH KHOA Y Chuyên Kinh Doanh Sỉ Thuốc Tây & Dụng Cụ Phòng Thí Nghiệm
+                            </p>
+                        </div>
+
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                            <h5 class="text-light">Thông Tin</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a class="linkbottom" target="_blank" href="http://www.mediscience.vn/">Mediscience VN</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://nhathuoclongchau.com/">Long Châu Nhà Thuốc</a></li>
+                                <li><a class="linkbottom" target="_blank" href="http://nhathuocminhchaubd.com/">Minh Châu Nhà Thuốc</a>
+                                    <li><a class="linkbottom" target="_blank" href="https://12707.maybanhang.net/quanly/#AA001">Máy Bán Hàng</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                            <h5>Liên Kết Khác</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a class="linkbottom" target="_blank" href="https://support.microsoft.com/en-us">Microsoft Support</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://www.4shared.com/">4Shared</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://voalearningenglish.blogspot.com/2014/08/while-you-sleep-your-brain-works.html">VOA English</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://thienlongmobile.vn/iphone-12-mini-256gb-nhap-khau-lla">Thiên Long Mobile</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3 col-xl-3">
+                            <h5>Liên Lạc</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-home mr-2">Công Ty TNNH KHOA Y</i></li>
+                                <li><i class="fa fa-envelope mr-2">Email: <a class="linkbottom" style="text-decoration: underline" href="mailto:huy7885@gmail.com">huy7885@gmail.com</a></i></li>
+                                <li><i class="fa fa-phone mr-2">ĐTDD: 0933492897</i></li>
+                                <li><i class="fa fa-print mr-2">Fax: (08) 3862 4784</i></li>
+                                <li><i class="fa fa-print mr-2">Website: <a class="linkbottom" style="text-decoration: underline" href="http://mediscience.ddns.net" target="_blank">Mediscience.ddns.net</a></i></li>
+                            </ul>
+                        </div>
+                        <div class="col-12 copyright mt-3">
+                            <p class="float-left">
+                                <a class="linkbottom" href="#">Quay Về</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- End Footer -->--%>
+
+                <!-- footer -->
+
+                <footer class="text-light">
+
+                    <div class="row">
+                        <div class="col-md-2 col-md-2cus col-lg-4 col-xl-3 mx-auto">
+                            <h5 class="text-light">Giới Thiệu</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25" />
+
+
+                            <p class="mb-0 text-light">
+                                Công Ty TNNH KHOA Y Chuyên Kinh Doanh Sỉ Thuốc Tây & Dụng Cụ Phòng Thí Nghiệm
+                            </p>
+                        </div>
+
+                        <div class="col-md-3 col-md-3cus col-lg-2 col-xl-2 mx-auto">
+
+                            <h5 class="text-light">Thông Tin</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a class="linkbottom" target="_blank" href="http://www.mediscience.vn/">Mediscience VN</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://nhathuoclongchau.com/">Long Châu Nhà Thuốc</a></li>
+                                <li><a class="linkbottom" target="_blank" href="http://nhathuocminhchaubd.com/">Minh Châu Nhà Thuốc</a>
+                                    <li><a class="linkbottom" target="_blank" href="https://12707.maybanhang.net/quanly/#AA001">Máy Bán Hàng</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                            <h5>Liên Kết Khác</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a class="linkbottom" target="_blank" href="https://support.microsoft.com/en-us">Microsoft Support</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://www.4shared.com/">4Shared</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://voalearningenglish.blogspot.com/2014/08/while-you-sleep-your-brain-works.html">VOA English</a></li>
+                                <li><a class="linkbottom" target="_blank" href="https://thienlongmobile.vn/iphone-12-mini-256gb-nhap-khau-lla">Thiên Long Mobile</a></li>
+
+                            </ul>
+                        </div>
+
+                          <div class="col-md-4 col-lg-3 col-xl-3">
+                            <h5>Liên Lạc</h5>
+                            <hr class="bg-light mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li ><i class="fa fa-home mr-2"> Công Ty TNNH KHOA Y</i></li>
+                                <li ><i class="fa fa-envelope mr-2"> Email: <a  style="text-decoration: underline;color:white" href="mailto:huy7885@gmail.com">huy7885@gmail.com</a></i></li>
+                                <li><i class="fa fa-phone mr-2"> ĐTDD:<a  style="text-decoration: none"> 0933492897 </a></i></li>
+                                <li><i class="fa fa-print mr-2"> Fax: <a  style="text-decoration: none">(08) 3862 4784</a></i></li>
+                                <li><i class="fa fa-wechat mr-2"> Website: <a  style="text-decoration: underline;color:white" href="http://mediscience.ddns.net" target="_blank">Mediscience.ddns.net</a></i></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-12 copyright mt-3 ml-6">
+                            <p class="float-left">
+                                <a class="linkbottom" href="#">Quay Về</a>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </footer>
+                <!-- End Footer -->
+            </ContentTemplate>
+            <Triggers>
+                <asp:PostBackTrigger ControlID="commandProductLocation" />
+                <asp:PostBackTrigger ControlID="commandProductPrice" />
+
+
+            </Triggers>
+        </asp:UpdatePanel>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+            <ProgressTemplate>
+                <asp:Panel ID="Panel1" CssClass="overlay" runat="server">
+                    <asp:Panel ID="Panel2" CssClass="loader" runat="server">
+                        <img src="images/ajax-loading-icon-19.jpg" width="60px" height="60px" />
+                    </asp:Panel>
+                </asp:Panel>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+
+        <%--  <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+            <ProgressTemplate>
+                 <asp:Panel ID="Panel1" CssClass="overlay" runat="server">
+                <asp:Panel ID="Panel2" CssClass="loader" runat="server">
+                     <img src="../Images/ajax-loading-icon-19.jpg" width="60px" height="60px" />                       
+                </asp:Panel>
+            </asp:Panel>
+              </ProgressTemplate>
+        </asp:UpdateProgress>--%>
+    </form>
+</body>
+</html>

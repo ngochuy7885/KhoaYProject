@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using KhoaY.Controller;
+using System.Data;
+using System.Web.UI.HtmlControls;
+public partial class ProductCategory : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["ProductCategoryId"] == null)
+            {
+                Response.Redirect("Default.aspx");
+            }
+            int ProductCategoryId = int.Parse(Request.QueryString["ProductCategoryId"].ToString());
+            //HtmlGenericControl li1 = (HtmlGenericControl)Page.FindControl("li1");
+            //li1.Attributes["class"] = "list-group-item active";
+            GetProductsByCategoryId(ProductCategoryId);
+            LoadNavigation();
+        }
+    }
+    public void LoadNavigation()
+    {
+        string ProductCategoryId = Request.QueryString["ProductCategoryId"].ToString();
+            
+        //Navigation
+        HyperLink hpl1 = (HyperLink)Page.Master.FindControl("hpl1");
+        HyperLink hpl2 = (HyperLink)Page.Master.FindControl("hpl2");
+        HyperLink hpl3 = (HyperLink)Page.Master.FindControl("hpl3");
+        HyperLink hpl4 = (HyperLink)Page.Master.FindControl("hpl4");
+        HyperLink hpl5 = (HyperLink)Page.Master.FindControl("hpl5");
+        HyperLink hpl6 = (HyperLink)Page.Master.FindControl("hpl6");
+
+        HtmlGenericControl li1 = (HtmlGenericControl)Page.Master.FindControl("li1");
+        HtmlGenericControl li2 = (HtmlGenericControl)Page.Master.FindControl("li2");
+        HtmlGenericControl li3 = (HtmlGenericControl)Page.Master.FindControl("li3");
+        HtmlGenericControl li4 = (HtmlGenericControl)Page.Master.FindControl("li4");
+        HtmlGenericControl li5 = (HtmlGenericControl)Page.Master.FindControl("li5");
+        HtmlGenericControl li6 = (HtmlGenericControl)Page.Master.FindControl("li6");
+
+
+        hpl1.Text = "Trang Chủ";
+        hpl1.NavigateUrl = "Default.aspx";
+        hpl2.Text = "Hãng";
+        hpl2.NavigateUrl = String.Format("~/ProductCategory.aspx?ProductCategoryId={0}", ProductCategoryId);
+        
+        ProcessProductCategory processproductcategory = new ProcessProductCategory();
+        DataSet ds = new DataSet();
+        ds = processproductcategory.ProductCategorySelectByIDDataSet(int.Parse(ProductCategoryId));
+
+        hpl3.Text = ds.Tables[0].Rows[0]["ProductCategoryName"].ToString();
+        hpl3.Style.Add("Color", "silver");
+        hpl3.Enabled = false;
+
+        hpl4.Text = "";
+        hpl5.Text = "";
+        hpl6.Text = "";
+
+        li1.Attributes["class"] = "breadcrumb-item";
+        li2.Attributes["class"] = "breadcrumb-item";
+        li3.Attributes["class"] = "breadcrumb-item";
+        li4.Attributes["class"] = "";
+        li5.Attributes["class"] = "";
+        li6.Attributes["class"] = "";
+
+    }
+    public void GetProductsByCategoryId(int ProductCategoryId)
+    {
+        ProcessProduct processproduct = new ProcessProduct();
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = processproduct.ProductSelectByCategoryID(ProductCategoryId);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                panelResults.Visible = false;
+                CollectionPager1.PageSize = 6; //Số sản phẩm hiển thị trên một trang
+                CollectionPager1.DataSource = ds.Tables[0].DefaultView;
+                CollectionPager1.BindToControl = datalistProducts;
+                datalistProducts.DataSource = CollectionPager1.DataSourcePaged;
+            }
+            else
+            {
+                panelResults.Visible = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            //Response.Write(ex.ToString());
+            KhoaY.Controller.Utilities.LogException(ex);
+        }
+    }
+
+}

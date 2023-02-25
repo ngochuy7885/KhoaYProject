@@ -1,0 +1,8 @@
+C:\Web\KhoaY\KhoaY.Controller\bin\Debug\KhoaY.Controller.dll
+C:\Web\KhoaY\KhoaY.Controller\bin\Debug\KhoaY.Controller.pdb
+C:\Web\KhoaY\KhoaY.Controller\bin\Debug\itextsharp.dll
+C:\Web\KhoaY\KhoaY.Controller\bin\Debug\KhoaY.Model.dll
+C:\Web\KhoaY\KhoaY.Controller\bin\Debug\KhoaY.Model.pdb
+C:\Web\KhoaY\KhoaY.Controller\obj\Debug\KhoaY.Controller.csprojResolveAssemblyReference.cache
+C:\Web\KhoaY\KhoaY.Controller\obj\Debug\KhoaY.Controller.dll
+C:\Web\KhoaY\KhoaY.Controller\obj\Debug\KhoaY.Controller.pdb

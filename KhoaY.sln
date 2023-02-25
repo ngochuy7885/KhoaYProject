@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Class Libraries", "Class Libraries", "{23960B0F-FC48-41B6-BCF3-F21FE885746E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0D55F27B-C7AF-43C9-8AB5-EE2C3E6F35D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaY.Model", "KhoaY.Model\KhoaY.Model.csproj", "{75925C94-5B29-4A67-ADD5-1E4E11154EEE}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KhoaY", "http://localhost:52551", "{75E66649-9DFC-4E21-AD18-387B200C11EE}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{3d532fcc-a3ab-4257-a6eb-9866f3692442}|KhoaY.Controller.dll;{75925C94-5B29-4A67-ADD5-1E4E11154EEE}|KhoaY.Model.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52551"
+		Debug.AspNetCompiler.PhysicalPath = "..\KhoaY\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52551\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52551"
+		Release.AspNetCompiler.PhysicalPath = "..\KhoaY\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52551\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\KhoaY\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaY.Controller", "KhoaY.Controller\KhoaY.Controller.csproj", "{3D532FCC-A3AB-4257-A6EB-9866F3692442}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75925C94-5B29-4A67-ADD5-1E4E11154EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75925C94-5B29-4A67-ADD5-1E4E11154EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75925C94-5B29-4A67-ADD5-1E4E11154EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75925C94-5B29-4A67-ADD5-1E4E11154EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E66649-9DFC-4E21-AD18-387B200C11EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E66649-9DFC-4E21-AD18-387B200C11EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E66649-9DFC-4E21-AD18-387B200C11EE}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E66649-9DFC-4E21-AD18-387B200C11EE}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{3D532FCC-A3AB-4257-A6EB-9866F3692442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D532FCC-A3AB-4257-A6EB-9866F3692442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D532FCC-A3AB-4257-A6EB-9866F3692442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D532FCC-A3AB-4257-A6EB-9866F3692442}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75925C94-5B29-4A67-ADD5-1E4E11154EEE} = {23960B0F-FC48-41B6-BCF3-F21FE885746E}
+		{75E66649-9DFC-4E21-AD18-387B200C11EE} = {0D55F27B-C7AF-43C9-8AB5-EE2C3E6F35D1}
+		{3D532FCC-A3AB-4257-A6EB-9866F3692442} = {23960B0F-FC48-41B6-BCF3-F21FE885746E}
+	EndGlobalSection
+EndGlobal
